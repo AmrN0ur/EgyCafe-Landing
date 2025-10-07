@@ -69,11 +69,11 @@
   color: white !important;
 }
 
-/* html,
-body {
-  width: 100%;
-  height: 100%;
-} */
+html,
+body,
+.page {
+  scroll-behavior: smooth;
+}
 
 body {
   font-family: var(--font-family);
@@ -214,4 +214,62 @@ section {
       z-index: 3 !important;
     }
   }
+}
+
+/* Custom Scrollbar Styles */
+/* Width */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  border-radius: 4px;
+  background: var(--primary-darker);
+
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--primary-normal);
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-normal-hover);
+}
+
+/* For Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary-normal) var(--primary-darker);
+}
+
+/* For WebKit (Chrome, Safari, etc.) */
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--primary-darker);
+  border-radius: 4px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--primary-normal);
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: var(--primary-normal-hover);
+}
+
+/* Smooth scrolling for the entire document */
+html {
+  scroll-behavior: smooth;
 }
