@@ -65,7 +65,7 @@
 }
 
 ::selection {
-  background-color: var(--primary-normal) !important;
+  background-color: #102d51 !important;
   color: white !important;
 }
 
@@ -77,9 +77,11 @@ body,
 
 body {
   font-family: var(--font-family);
-  /* user-select: none; */
+  user-select: none;
   color: var(--text-color);
+}
 
+body [el-type="page"] {
   * {
     transition: 0.3s ease !important;
   }
@@ -95,6 +97,7 @@ body {
   margin: 0 auto;
   align-self: center;
   justify-self: center;
+  gap: 60px;
 }
 
 input,
@@ -115,6 +118,25 @@ input {
   &:active {
     opacity: 1;
     scale: 1;
+  }
+}
+
+input,
+textarea {
+  display: flex;
+  padding: 16px;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  border-radius: 8px;
+  border: 1px solid var(--primary-normal);
+  opacity: 0.7;
+  background-color: transparent;
+  color: white;
+
+  &:hover,
+  &:focus {
+    opacity: 1;
   }
 }
 
@@ -199,12 +221,11 @@ section {
     transform: rotate(40deg);
   }
 
-
   & .section-content {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    justify-content: center !important;
+    align-items: center !important;
     position: relative;
     z-index: 3 !important;
     width: 100%;
@@ -227,7 +248,6 @@ section {
 ::-webkit-scrollbar-track {
   border-radius: 4px;
   background: var(--primary-darker);
-
 }
 
 /* Handle */
@@ -269,7 +289,14 @@ section {
   background-color: var(--primary-normal-hover);
 }
 
-/* Smooth scrolling for the entire document */
-html {
-  scroll-behavior: smooth;
+p {
+  user-select: text;
+}
+
+#features,
+#howItsWork,
+#pricing,
+#contact,
+#faq {
+  scroll-margin-top: 150px;
 }

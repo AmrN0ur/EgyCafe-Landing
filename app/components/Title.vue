@@ -17,7 +17,7 @@ const props = defineProps({
 
 <template>
   <div class="title">
-    <h1 class="title" v-if="props.title">{{ props.title }}</h1>
+    <h4 class="title" v-if="props.title">{{ props.title }}</h4>
 
     <p class="text" v-if="props.text">{{ props.text }}</p>
   </div>

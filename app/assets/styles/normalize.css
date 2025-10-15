@@ -362,6 +362,8 @@ h6 {
 }
 
 ul {
+  margin: 0;
+  padding: 0;
   list-style: none;
 
   & li {
@@ -372,12 +374,14 @@ ul {
 }
 
 a {
-  cursor: pointer;
+  cursor: pointer !important;
   text-decoration: none;
   color: inherit;
+  margin: 0;
 }
 
 p {
+  cursor: text !important;
   margin: 0;
   padding: 0;
 }

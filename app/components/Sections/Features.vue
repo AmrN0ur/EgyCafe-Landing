@@ -1,5 +1,5 @@
 <script setup>
-import Title from "../Title.vue";
+import Title from "@/components/Title.vue";
 
 const features = ref([
   {
@@ -87,7 +87,7 @@ const features = ref([
 
 <template>
   <section class="features-section">
-    <div class="section-content">
+    <div class="section-content" id="features">
       <div class="container">
         <Title
           title="كل ما تحتاجه في مكان واحد"
@@ -102,7 +102,7 @@ const features = ref([
               :style="{ backgroundColor: feature.bgColor }"
             ></div>
             <div class="title">{{ feature.title }}</div>
-            <div class="text">{{ feature.text }}</div>
+            <p class="text">{{ feature.text }}</p>
           </div>
         </div>
       </div>

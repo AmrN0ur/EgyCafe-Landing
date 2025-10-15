@@ -1,9 +1,16 @@
 <script setup>
 import Features from "@/components/Sections/Features.vue";
+import HowItsWork from "@/components/Sections/HowItsWork.vue";
+import Permissions from "@/components/Sections/Permissions.vue";
+import WhyUs from "@/components/Sections/WhyUs.vue";
+import Testimonials from "@/components/Sections/Testimonials.vue";
+import ContactUs from "@/components/Sections/ContactUs.vue";
+import FAQ from "@/components/Sections/FAQ.vue";
+import Footer from "@/components/Footer.vue";
 </script>
 
 <template>
-  <div class="page">
+  <div class="page" el-type="page">
     <!-- Sections -->
     <main class="sections">
       <!-- Hero Section -->
@@ -32,10 +39,28 @@ import Features from "@/components/Sections/Features.vue";
 
       <!-- Features Section -->
       <Features />
+
+      <!-- How Its Work Section -->
+      <HowItsWork />
+
+      <!-- Permissions Section -->
+      <Permissions />
+
+      <!-- Why Us Section -->
+      <WhyUs />
+
+      <!-- Testimonials Section -->
+      <Testimonials />
+
+      <!-- Contact Us Section -->
+      <ContactUs />
+
+      <!-- FAQ Section -->
+      <FAQ />
     </main>
 
     <!-- Footer -->
-    <footer class="footer"></footer>
+    <Footer />
   </div>
 </template>
 

@@ -1,6 +1,12 @@
 <script setup>
-function goLogin() {
-  window.location.href = "https://example.com";
+function goToLogin() {
+  window.location.href = "https://egycafe.net/login";
+}
+
+function goToElement(Id) {
+  document.getElementById(Id).scrollIntoView({
+  behavior: "smooth"
+});
 }
 </script>
 
@@ -12,12 +18,12 @@ function goLogin() {
       </div>
 
       <ul class="part nav">
-        <li><a href="#home">الرئيسية</a></li>
-        <li><a href="#features">المميزات</a></li>
-        <li><a href="#how-it-works">كيف يعمل</a></li>
-        <li><a href="#pricing">الأسعار</a></li>
-        <li><a href="#contact">تواصل معنا</a></li>
-        <li><a href="#faq">الأسئلة الشائعة</a></li>
+        <li class="active"><a href="#home">الرئيسية</a></li>
+        <li @click="goToElement('features')">المميزات</li>
+        <li @click="goToElement('howItsWork')">كيف يعمل</li>
+        <li @click="goToElement('pricing')">الأسعار</li>
+        <li @click="goToElement('contact')">تواصل معنا</li>
+        <li @click="goToElement('faq')">الأسئلة الشائعة</li>
       </ul>
 
       <div class="part actions">
@@ -57,9 +63,19 @@ function goLogin() {
         line-height: 150%;
 
         & li {
-          &:hover {
-            cursor: pointer;
+          cursor: pointer;
+
+          &.active {
             color: #3588ff;
+          }
+
+          &:hover {
+            color: #3588ff;
+          }
+
+          &:active {
+            color: white;
+            scale: 0.95;
           }
         }
       }
