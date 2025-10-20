@@ -3,6 +3,13 @@ useHead({
   head: {
     charset: "utf-8",
     viewport: "width=device-width, initial-scale=1, maximum-scale=1",
+    link: [
+      {
+        rel: "icon",
+        type: "image/webp",
+        href: "/logo.webp",
+      },
+    ],
   },
   htmlAttrs: {
     lang: "ar",

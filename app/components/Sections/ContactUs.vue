@@ -1,6 +1,8 @@
 <script setup>
 import Title from "@/components/Title.vue";
 
+const isLoading = ref(false);
+
 const userData = ref({
   fullName: "",
   phone: "",
@@ -62,19 +64,44 @@ const socials = ref([
   },
 ]);
 
-function submitForm() {
-  alert(`
-    تم ارسال رسالتك:
-        الاسم: ${userData.value.fullName}
-        الهاتف: ${userData.value.phone}
-        الرسالة: ${userData.value.message}
-    `);
+async function submitForm() {
+  try {
+    isLoading.value = true;
+
+    const data = {
+      fullName: userData.value.fullName,
+      phone: userData.value.phone,
+      message: userData.value.message,
+    };
+
+    const response = await fetch("/api/contact", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to send message");
+    }
+
+    alert("Message sent successfully");
+  } catch (error) {
+    console.error("Error sending message:", error);
+    alert("Failed to send message");
+  } finally {
+    isLoading.value = false;
+    userData.value.fullName = "";
+    userData.value.phone = "";
+    userData.value.message = "";
+  }
 }
 </script>
 
 <template>
-  <section class="contact-us-section" id="contactUs">
-    <div class="section-content">
+  <section class="contact-us-section">
+    <div class="section-content" id="contact">
       <div class="container">
         <div class="part right">
           <Title
@@ -119,12 +146,13 @@ function submitForm() {
 
             <div class="form-item">
               <input
-                type="number"
+                type="tel"
                 placeholder="رقم الهاتف"
                 v-model="userData.phone"
                 minlength="9"
                 maxlength="15"
                 id="phone"
+                dir="rtl"
                 required
               />
             </div>
@@ -140,8 +168,9 @@ function submitForm() {
           </div>
 
           <button class="btn submit" type="submit">
-            أرسل رسالتك
+            {{ isLoading ? 'جاري الارسال...' : 'أرسل رسالتك'}}
             <svg
+              v-show="!isLoading"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
               height="25"
@@ -183,6 +212,7 @@ function submitForm() {
           align-items: center;
           gap: 25px;
           width: 600px;
+          margin: 0 auto;
 
           & .form-item {
             width: 100%;
@@ -197,6 +227,7 @@ function submitForm() {
               max-height: 200px;
               height: max-content;
               min-width: 100%;
+              width: 100%;
               max-width: 100%;
             }
           }
@@ -245,7 +276,7 @@ function submitForm() {
             }
 
             &.links {
-                margin-bottom: 25px;
+              margin-bottom: 25px;
 
               & .link {
                 color: #90a1b9;

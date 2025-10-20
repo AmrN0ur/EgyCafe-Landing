@@ -3,10 +3,38 @@ import Features from "@/components/Sections/Features.vue";
 import HowItsWork from "@/components/Sections/HowItsWork.vue";
 import Permissions from "@/components/Sections/Permissions.vue";
 import WhyUs from "@/components/Sections/WhyUs.vue";
+import Pricing from "@/components/Sections/Pricing.vue";
 import Testimonials from "@/components/Sections/Testimonials.vue";
 import ContactUs from "@/components/Sections/ContactUs.vue";
 import FAQ from "@/components/Sections/FAQ.vue";
 import Footer from "@/components/Footer.vue";
+
+const showBackToTop = ref(false);
+
+const scrollToTop = () => {
+  if (typeof window !== "undefined") {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+};
+
+const onScroll = () => {
+  if (typeof window !== "undefined") {
+    showBackToTop.value = window.scrollY > 200; // غيّر العتبة حسب الحاجة
+  }
+};
+
+onMounted(() => {
+  if (typeof window !== "undefined") {
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll(); // تحديث أولي
+  }
+});
+
+onBeforeUnmount(() => {
+  if (typeof window !== "undefined") {
+    window.removeEventListener("scroll", onScroll);
+  }
+});
 </script>
 
 <template>
@@ -14,7 +42,7 @@ import Footer from "@/components/Footer.vue";
     <!-- Sections -->
     <main class="sections">
       <!-- Hero Section -->
-      <section class="hero">
+      <section id="hero" class="hero">
         <div class="section-content">
           <!-- Header -->
           <Header />
@@ -49,6 +77,9 @@ import Footer from "@/components/Footer.vue";
       <!-- Why Us Section -->
       <WhyUs />
 
+      <!-- Pricing Section -->
+      <Pricing />
+
       <!-- Testimonials Section -->
       <Testimonials />
 
@@ -61,6 +92,19 @@ import Footer from "@/components/Footer.vue";
 
     <!-- Footer -->
     <Footer />
+
+    <!-- Back To Top -->
+    <img
+      v-show="showBackToTop"
+      @click="scrollToTop"
+      @keydown.enter="scrollToTop"
+      @keydown.space.prevent="scrollToTop"
+      role="button"
+      tabindex="0"
+      class="back-to-top"
+      src="/icons/up.gif"
+      alt="العودة للأعلى"
+    />
   </div>
 </template>
 
@@ -69,13 +113,12 @@ import Footer from "@/components/Footer.vue";
   display: grid;
   grid-template-rows: 1fr auto;
   grid-template-columns: 1fr;
-  min-width: 100vw;
   min-height: 100vh;
   width: 100%;
   height: 100%;
   max-width: 100vw !important;
   max-height: 100vh !important;
-  overflow: hidden auto;
+  overflow-x: hidden;
 
   & .header {
     display: flex;
@@ -84,6 +127,7 @@ import Footer from "@/components/Footer.vue";
     align-items: center;
     background-color: transparent;
     padding: 30px 60px;
+    z-index: 4 !important;
 
     & .part {
       width: fit-content;
@@ -109,6 +153,7 @@ import Footer from "@/components/Footer.vue";
     justify-content: stretch;
     align-items: center;
     z-index: 0;
+    max-width: 100vw !important;
 
     & section {
       /* Start Hero */
@@ -178,6 +223,18 @@ import Footer from "@/components/Footer.vue";
   }
 
   & .footer {
+  }
+
+  & .back-to-top {
+    width: 40px;
+    height: 40px;
+    border-radius: 50px;
+    background-color: var(--primary-normal-active);
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 10000;
+    cursor: pointer;
   }
 }
 </style>

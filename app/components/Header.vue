@@ -1,30 +1,75 @@
 <script setup>
+import { ref } from "vue";
+import { useScreenWidth } from "@/assets/scripts/Screen";
+import Nav from "./Nav.vue";
+
+const { screenWidth } = useScreenWidth();
+
 function goToLogin() {
   window.location.href = "https://egycafe.net/login";
 }
 
 function goToElement(Id) {
   document.getElementById(Id).scrollIntoView({
-  behavior: "smooth"
-});
+    behavior: "smooth",
+  });
 }
+
+const navItems = ref([
+  {
+    name: "الرئيسية",
+    id: "hero",
+    active: true,
+  },
+  {
+    name: "المميزات",
+    id: "features",
+  },
+  {
+    name: "كيف يعمل",
+    id: "howItsWork",
+  },
+  {
+    name: "الأسعار",
+    id: "pricing",
+  },
+  {
+    name: "تواصل معنا",
+    id: "contact",
+  },
+  {
+    name: "الأسئلة الشائعة",
+    id: "faq",
+  },
+]);
 </script>
 
 <template>
   <header class="header">
     <div class="container">
-      <div class="part logo">
-        <img src="/images/logo.svg" alt="شعار ايجى كافى" />
+      <div class="part logo" v-if="screenWidth > 1090">
+        <a href="">
+          <img src="/images/logo.svg" alt="شعار ايجى كافى" />
+        </a>
       </div>
 
-      <ul class="part nav">
-        <li class="active"><a href="#home">الرئيسية</a></li>
-        <li @click="goToElement('features')">المميزات</li>
-        <li @click="goToElement('howItsWork')">كيف يعمل</li>
-        <li @click="goToElement('pricing')">الأسعار</li>
-        <li @click="goToElement('contact')">تواصل معنا</li>
-        <li @click="goToElement('faq')">الأسئلة الشائعة</li>
+      <ul class="part nav" v-if="screenWidth > 1090">
+        <li
+          v-for="item in navItems"
+          :key="item.id"
+          @click="goToElement(item.id)"
+          :class="`${item.active ? 'active' : ''}`"
+        >
+          {{ item.name }}
+        </li>
       </ul>
+
+      <Nav
+        v-else
+        :items="navItems"
+        :showItems="screenWidth > 1090"
+        @goToElement="goToElement($event)"
+      />
 
       <div class="part actions">
         <button class="btn btn-primary" @click="goToLogin">تسجيل الدخول</button>
@@ -88,6 +133,27 @@ function goToElement(Id) {
           font-size: 16px;
           font-weight: 700;
           line-height: 24px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 1090px) {
+  .header {
+    & .container {
+      & .part {
+        &.logo {
+        }
+
+        &.nav {
+          & li {
+          }
+        }
+
+        &.actions {
+          & .btn {
+          }
         }
       }
     }
